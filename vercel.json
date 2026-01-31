@@ -1,4 +1,10 @@
 {
+  "builds": [
+    {
+      "src": "next.config.ts",
+      "use": "@vercel/next"
+    }
+  ],
   "crons": [
     {
       "path": "/api/cron/lead-notifications",
