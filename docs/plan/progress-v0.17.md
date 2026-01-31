@@ -5,5 +5,5 @@ Date: 2026-01-31
 ## Log
 - Initialized v0.17 plan and progress logs.
 - Added custom domain xerebro.me to the Vercel project.
-- Simplified middleware to edge-safe passthrough to stop runtime crashes.
+- Removed middleware to stop Edge runtime crashes (revisit Supabase session refresh later).
 - Awaiting DNS A record verification from Gabia before updating APP_BASE_URL.
