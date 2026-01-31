@@ -7,4 +7,5 @@ Date: 2026-01-31
 - Forced Next.js builder via vercel.json to fix 404 deployments.
 - Updated @vercel/next build source to package.json for compatibility.
 - Handled missing Supabase auth sessions to avoid 500s on first visit.
-- Deployed production for verification.
+- Deployed production and re-aliased xerebro.me.
+- Verified production cron sends and updates lead_notifications to sent.
