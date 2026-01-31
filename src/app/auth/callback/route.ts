@@ -21,6 +21,5 @@ export async function GET(request: Request) {
   }
 
   // Route through home to respect consent gating logic.
-  const requestUrl = new URL(request.url)
   return NextResponse.redirect(new URL('/', requestUrl.origin))
 }

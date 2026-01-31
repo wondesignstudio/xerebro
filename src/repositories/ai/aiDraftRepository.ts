@@ -5,8 +5,8 @@ export type AiDraftRequest = {
   draftMessage: string
 }
 
-function getRequestOrigin() {
-  const headerList = headers()
+async function getRequestOrigin() {
+  const headerList = await headers()
   const forwardedProto = headerList.get('x-forwarded-proto')
   const forwardedHost = headerList.get('x-forwarded-host')
   const host = forwardedHost ?? headerList.get('host')
@@ -21,7 +21,7 @@ function getRequestOrigin() {
 
 // Calls the internal AI draft API route to get a revised message.
 export async function requestAiDraftUpdate(params: AiDraftRequest) {
-  const origin = getRequestOrigin()
+  const origin = await getRequestOrigin()
   const response = await fetch(`${origin}/api/ai/draft`, {
     method: 'POST',
     headers: {

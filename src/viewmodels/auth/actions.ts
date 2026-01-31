@@ -8,8 +8,8 @@ import { requireAuthUserOrRedirect } from '@/viewmodels/auth/guards'
 import { setUserLastLeftAt } from '@/repositories/users/userRepository'
 
 // Resolves the request origin to build absolute OAuth redirect URLs.
-function getRequestOrigin() {
-  const headerList = headers()
+async function getRequestOrigin() {
+  const headerList = await headers()
   const forwardedProto = headerList.get('x-forwarded-proto')
   const forwardedHost = headerList.get('x-forwarded-host')
   const host = forwardedHost ?? headerList.get('host')
@@ -24,7 +24,7 @@ function getRequestOrigin() {
 
 // Starts OAuth sign-in and redirects the user to the provider.
 export async function signInWithProvider(provider: OAuthProvider) {
-  const redirectTo = `${getRequestOrigin()}/auth/callback`
+  const redirectTo = `${await getRequestOrigin()}/auth/callback`
   const url = await createOAuthSignInUrl(provider, redirectTo)
   redirect(url)
 }

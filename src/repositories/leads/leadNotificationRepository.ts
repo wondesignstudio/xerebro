@@ -58,6 +58,10 @@ export type LeadNotificationWithEmail = LeadNotification & {
   email: string | null
 }
 
+type LeadNotificationJoinRow = LeadNotificationRow & {
+  users?: { email: string | null } | { email: string | null }[] | null
+}
+
 export async function listPendingLeadNotifications(limit = 100) {
   const supabase = await createServerSupabaseClient()
   const { data, error } = await supabase
@@ -72,10 +76,13 @@ export async function listPendingLeadNotifications(limit = 100) {
   }
 
   return (data ?? []).map((row) => {
-    const typedRow = row as LeadNotificationRow & { users?: { email: string | null } | null }
+    const typedRow = row as LeadNotificationJoinRow
+    const users = typedRow.users
+    const email = Array.isArray(users) ? users[0]?.email ?? null : users?.email ?? null
+
     return {
       ...toLeadNotification(typedRow),
-      email: typedRow.users?.email ?? null,
+      email,
     }
   })
 }
