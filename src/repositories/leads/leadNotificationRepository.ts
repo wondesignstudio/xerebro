@@ -1,4 +1,5 @@
 import type { LeadNotification, LeadNotificationStatus, LeadNotificationType } from '@/domain/leadNotification'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { createServerSupabaseClient } from '@/repositories/supabase/server'
 
 export type LeadNotificationRow = {
@@ -62,8 +63,11 @@ type LeadNotificationJoinRow = LeadNotificationRow & {
   users?: { email: string | null } | { email: string | null }[] | null
 }
 
-export async function listPendingLeadNotifications(limit = 100) {
-  const supabase = await createServerSupabaseClient()
+export async function listPendingLeadNotifications(
+  limit = 100,
+  client?: SupabaseClient
+) {
+  const supabase = client ?? await createServerSupabaseClient()
   const { data, error } = await supabase
     .from('lead_notifications')
     .select('id, user_id, type, status, created_at, users(email)')
@@ -87,12 +91,15 @@ export async function listPendingLeadNotifications(limit = 100) {
   })
 }
 
-export async function markLeadNotificationsSent(ids: string[]) {
+export async function markLeadNotificationsSent(
+  ids: string[],
+  client?: SupabaseClient
+) {
   if (ids.length === 0) {
     return
   }
 
-  const supabase = await createServerSupabaseClient()
+  const supabase = client ?? await createServerSupabaseClient()
   const { error } = await supabase
     .from('lead_notifications')
     .update({ status: 'sent' as LeadNotificationStatus })

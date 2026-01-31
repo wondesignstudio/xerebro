@@ -5,6 +5,7 @@ import {
   markLeadNotificationsSent,
 } from '@/repositories/leads/leadNotificationRepository'
 import { sendLeadReadyEmail } from '@/repositories/notifications/resendMailer'
+import { createAdminSupabaseClient } from '@/repositories/supabase/admin'
 
 function isAuthorized(request: NextRequest) {
   const secret = process.env.CRON_SECRET
@@ -23,7 +24,8 @@ export async function GET(request: NextRequest) {
   }
 
   const baseUrl = process.env.APP_BASE_URL || request.nextUrl.origin
-  const pending = await listPendingLeadNotifications(100)
+  const adminClient = createAdminSupabaseClient()
+  const pending = await listPendingLeadNotifications(100, adminClient)
 
   if (pending.length === 0) {
     return NextResponse.json({ sent: 0, failed: 0 })
@@ -49,7 +51,7 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  await markLeadNotificationsSent(sentIds)
+  await markLeadNotificationsSent(sentIds, adminClient)
 
   return NextResponse.json({ sent: sentIds.length, failed: failedCount })
 }
