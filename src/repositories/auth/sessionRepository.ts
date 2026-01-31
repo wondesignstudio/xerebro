@@ -8,6 +8,9 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
   const { data, error } = await supabase.auth.getUser()
 
   if (error) {
+    if (error.name === 'AuthSessionMissingError') {
+      return null
+    }
     throw new Error('Failed to load current user session.')
   }
 
