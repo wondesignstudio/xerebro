@@ -14,6 +14,10 @@ npm run e2e:auth
 
 - 브라우저에서 Google/Kakao 로그인 완료 후 `/dashboard` 또는 `/hosted-pages`로 이동하면
   `tests/e2e/.auth/user.json` 이 생성됩니다.
+- `e2e:auth`는 기본적으로 시스템 Chrome 채널을 사용합니다
+  (`PLAYWRIGHT_CHROMIUM_CHANNEL=chrome`).
+  Google 보안 차단 이슈가 있으면 Kakao 대신 Google만 먼저 확인하고,
+  Supabase provider 활성 상태를 점검하세요.
 
 ## 3) E2E 실행
 

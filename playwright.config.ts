@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
 
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000'
+const chromiumChannel = process.env.PLAYWRIGHT_CHROMIUM_CHANNEL
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -27,7 +28,10 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        ...(chromiumChannel ? { channel: chromiumChannel } : {}),
+      },
     },
   ],
 })
