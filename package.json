@@ -10,7 +10,7 @@
     "test": "vitest run",
     "e2e": "playwright test tests/e2e/hosted-pages.spec.ts",
     "e2e:headed": "playwright test tests/e2e/hosted-pages.spec.ts --headed",
-    "e2e:auth": "playwright test tests/e2e/auth.setup.ts --headed",
+    "e2e:auth": "playwright test tests/e2e/auth.spec.ts --headed",
     "e2e:auth:b64": "node scripts/e2e/print-auth-state-b64.mjs"
   },
   "dependencies": {
