@@ -2,6 +2,39 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Progress v0.62
+
+Date: 2026-02-18
+
+### Log
+- Added Playwright global auth bootstrap:
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/global-setup.ts`
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/auth-state.ts`
+  - behavior:
+    - use local `tests/e2e/.auth/user.json` when present
+    - else decode `PLAYWRIGHT_AUTH_STATE_B64` and write auth file
+    - in CI, fail fast when auth secret is missing
+- Updated Playwright runtime config:
+  - `/Users/dongjunma/Desktop/Xerebro/playwright.config.ts`
+  - enabled `globalSetup`
+  - added `webServer` bootstrap (`npm run dev`) for browser e2e execution
+- Updated hosted-pages/auth setup specs to use shared auth-state path:
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/hosted-pages.spec.ts`
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/auth.setup.ts`
+- Updated CI E2E env wiring:
+  - `/Users/dongjunma/Desktop/Xerebro/.github/workflows/ci.yml`
+  - passes `PLAYWRIGHT_AUTH_STATE_B64`, Supabase URL/keys, and base URL env
+- Updated E2E setup docs:
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/README.md`
+  - added base64 secret generation step for CI
+- Validation complete:
+  - `npm run lint`
+  - `npm run test`
+  - `npm run e2e -- --list`
+
+
+---
+
 ## Progress v0.61
 
 Date: 2026-02-18

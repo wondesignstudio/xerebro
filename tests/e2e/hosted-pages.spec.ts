@@ -1,10 +1,9 @@
 import fs from 'node:fs'
-import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 import { test, expect } from '@playwright/test'
+import { AUTH_STATE_FILE } from './auth-state'
 
-const AUTH_FILE = path.resolve(__dirname, '.auth/user.json')
-const hasAuthState = fs.existsSync(AUTH_FILE)
+const hasAuthState = fs.existsSync(AUTH_STATE_FILE)
 
 async function cleanupHostedPageBySlug(slug: string) {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -26,8 +25,8 @@ async function cleanupHostedPageBySlug(slug: string) {
 }
 
 test.describe('hosted pages critical flow', () => {
-  test.skip(!hasAuthState, 'Run `npm run e2e:auth` first to create tests/e2e/.auth/user.json')
-  test.use({ storageState: hasAuthState ? AUTH_FILE : undefined })
+  test.skip(!hasAuthState, 'Run `npm run e2e:auth` or set PLAYWRIGHT_AUTH_STATE_B64 for CI.')
+  test.use({ storageState: hasAuthState ? AUTH_STATE_FILE : undefined })
 
   test('create -> detail save -> list publish toggle', async ({ page }) => {
     const slug = `e2e-${Date.now().toString(36)}`

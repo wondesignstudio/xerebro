@@ -22,7 +22,17 @@ npm run e2e
 ```
 
 - 현재 `npm run e2e`는 `tests/e2e/hosted-pages.spec.ts`만 실행합니다.
-- `tests/e2e/.auth/user.json`이 없으면 테스트는 자동 skip 됩니다(CI 기본 동작).
+- 로컬에서 `tests/e2e/.auth/user.json`이 없으면 테스트는 skip 됩니다.
+- CI에서는 `PLAYWRIGHT_AUTH_STATE_B64`가 없으면 실행이 실패합니다.
+
+## CI 인증 상태 시크릿 준비
+
+`npm run e2e:auth`로 만든 `tests/e2e/.auth/user.json`을 base64로 인코딩해
+GitHub secret `PLAYWRIGHT_AUTH_STATE_B64`로 등록합니다.
+
+```bash
+node -e "const fs=require('fs');const s=fs.readFileSync('tests/e2e/.auth/user.json','utf8');process.stdout.write(Buffer.from(s,'utf8').toString('base64'))"
+```
 
 ## 환경 변수
 

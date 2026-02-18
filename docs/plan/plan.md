@@ -2,6 +2,21 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Plan v0.62
+
+Date: 2026-02-18
+Owner: Codex
+Scope: Make CI E2E an enforced authenticated quality gate
+
+### Steps
+1. Add Playwright global setup to provision auth state from CI secret.
+2. Configure Playwright web server bootstrap for automated browser runs.
+3. Update CI workflow to pass required E2E env secrets and fail when auth secret is missing.
+4. Update E2E docs with CI auth-state secret setup and verify lint/test/e2e list.
+
+
+---
+
 ## Plan v0.61
 
 Date: 2026-02-18
