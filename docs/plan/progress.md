@@ -2,6 +2,30 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Progress v0.61
+
+Date: 2026-02-18
+
+### Log
+- Adjusted Playwright npm scripts so CI does not run manual auth capture flow:
+  - `/Users/dongjunma/Desktop/Xerebro/package.json`
+  - `e2e` and `e2e:headed` now target `tests/e2e/hosted-pages.spec.ts`
+  - `e2e:auth` remains manual social-login capture command
+- Added GitHub Actions CI workflow:
+  - `/Users/dongjunma/Desktop/Xerebro/.github/workflows/ci.yml`
+  - pipeline: `npm ci` -> Playwright browser install -> `npm run lint` -> `npm run test` -> `npm run e2e`
+  - Playwright artifacts upload configured (`playwright-report`, `test-results`)
+- Updated E2E guide:
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/README.md`
+  - documented that CI/no-auth environments skip hosted-pages e2e by default
+- Validation complete:
+  - `npm run lint`
+  - `npm run test`
+  - `npm run e2e -- --list`
+
+
+---
+
 ## Progress v0.60
 
 Date: 2026-02-18

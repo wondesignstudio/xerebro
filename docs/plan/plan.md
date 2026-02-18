@@ -2,6 +2,21 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Plan v0.61
+
+Date: 2026-02-18
+Owner: Codex
+Scope: CI pipeline integration for lint/unit/e2e checks
+
+### Steps
+1. Split Playwright scripts so CI excludes manual auth capture scenario.
+2. Add GitHub Actions workflow for lint, unit tests, and e2e.
+3. Preserve current OAuth constraints by keeping hosted-pages e2e auth-state gated.
+4. Update e2e docs and validate command paths.
+
+
+---
+
 ## Plan v0.60
 
 Date: 2026-02-18

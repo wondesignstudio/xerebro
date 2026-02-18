@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "e2e": "playwright test",
-    "e2e:headed": "playwright test --headed",
+    "e2e": "playwright test tests/e2e/hosted-pages.spec.ts",
+    "e2e:headed": "playwright test tests/e2e/hosted-pages.spec.ts --headed",
     "e2e:auth": "playwright test tests/e2e/auth.setup.ts --headed"
   },
   "dependencies": {

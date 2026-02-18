@@ -21,6 +21,9 @@ npm run e2e:auth
 npm run e2e
 ```
 
+- 현재 `npm run e2e`는 `tests/e2e/hosted-pages.spec.ts`만 실행합니다.
+- `tests/e2e/.auth/user.json`이 없으면 테스트는 자동 skip 됩니다(CI 기본 동작).
+
 ## 환경 변수
 
 - `PLAYWRIGHT_BASE_URL` (기본값: `http://localhost:3000`)
