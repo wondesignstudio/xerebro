@@ -2,9 +2,10 @@
 do $$
 declare
   v_type_name text;
+  v_type_kind text;
 begin
-  select t.typname
-    into v_type_name
+  select t.typname, t.typtype
+    into v_type_name, v_type_kind
     from pg_type t
     join pg_attribute a on a.atttypid = t.oid
     join pg_class c on c.oid = a.attrelid
@@ -13,7 +14,8 @@ begin
      and a.attname = 'type'
      and n.nspname = 'public';
 
-  if v_type_name is not null then
+  -- Only alter enum types. Skip plain text columns.
+  if v_type_name is not null and v_type_kind = 'e' then
     execute format('alter type %I add value if not exists ''abuse_restriction''', v_type_name);
   end if;
 end $$;
@@ -68,7 +70,8 @@ begin
      set free_credits = v_free,
          subscription_credits = v_subscription,
          purchased_credits = v_purchased
-   where user_id = p_user_id;
+   where user_id = p_user_id
+   returning * into v_wallet;
 
   insert into transactions (
     id,
@@ -86,6 +89,6 @@ begin
     p_related_lead_id
   );
 
-  return (select * from wallets where user_id = p_user_id);
+  return v_wallet;
 end;
 $$;

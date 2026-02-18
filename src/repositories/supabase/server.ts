@@ -13,16 +13,34 @@ export async function createServerSupabaseClient() {
 
   const cookieStore = await cookies()
 
+  type CookieSetOptions = Omit<Parameters<typeof cookieStore.set>[0], 'name' | 'value'>
+
+  const safeSetCookie = (name: string, value: string, options?: CookieSetOptions) => {
+    try {
+      cookieStore.set({ name, value, ...(options ?? {}) })
+    } catch {
+      // Ignore cookie mutation errors in server components.
+    }
+  }
+
+  const safeRemoveCookie = (name: string, options?: CookieSetOptions) => {
+    try {
+      cookieStore.set({ name, value: '', ...(options ?? {}) })
+    } catch {
+      // Ignore cookie mutation errors in server components.
+    }
+  }
+
   return createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
       get(name) {
         return cookieStore.get(name)?.value
       },
       set(name, value, options) {
-        cookieStore.set({ name, value, ...options })
+        safeSetCookie(name, value, options)
       },
       remove(name, options) {
-        cookieStore.set({ name, value: '', ...options })
+        safeRemoveCookie(name, options)
       },
     },
   })

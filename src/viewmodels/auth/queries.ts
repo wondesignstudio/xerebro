@@ -1,7 +1,7 @@
-import { isConsentComplete } from '@/domain/userProfile'
+import { isBrandCoreComplete, isConsentComplete } from '@/domain/userProfile'
 import { getCurrentUser } from '@/repositories/auth/sessionRepository'
 import { fetchUserProfileById } from '@/repositories/users/userRepository'
-import { requireAuthUserOrRedirect } from '@/viewmodels/auth/guards'
+import { requireAuthUserOrRedirect, requireAuthUserWithConsentOrRedirect } from '@/viewmodels/auth/guards'
 
 // Viewmodel wrapper for UI to access current user (nullable).
 export async function getAuthUser() {
@@ -29,5 +29,17 @@ export async function getConsentState() {
     user,
     profile,
     hasConsented: isConsentComplete(profile),
+  }
+}
+
+// Loads Brand Identity interview/tuning state for authenticated, consented users.
+export async function getBrandIdentityState() {
+  const { user, profile } = await requireAuthUserWithConsentOrRedirect()
+
+  return {
+    user,
+    profile,
+    isCoreInterviewComplete: isBrandCoreComplete(profile),
+    isPersonaConfigured: Boolean(profile?.personaTone || profile?.personaGuideline),
   }
 }

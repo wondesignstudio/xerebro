@@ -12,6 +12,9 @@ import AiDraftEditor from '@/ui/components/AiDraftEditor'
 import CopyDraftButton from '@/ui/components/CopyDraftButton'
 import DraftHistoryList from '@/ui/components/DraftHistoryList'
 import ReportLeadModal from '@/ui/components/ReportLeadModal'
+import AppNavigation from '@/ui/components/AppNavigation'
+import AppBreadcrumbs from '@/ui/components/AppBreadcrumbs'
+import GsapReveal from '@/ui/components/GsapReveal'
 
 type LeadsPageProps = {
   searchParams?: {
@@ -76,54 +79,59 @@ export default async function LeadsPage({ searchParams }: LeadsPageProps) {
   const isNotificationPending = notificationStatus?.status === 'pending'
 
   return (
-    <main className="min-h-screen bg-slate-50 px-6 py-10">
-      <div className="mx-auto w-full max-w-6xl">
-        <header className="mb-6">
-          <p className="text-sm font-semibold text-slate-500">Lead Discovery</p>
-          <h1 className="mt-1 text-2xl font-semibold text-slate-900">오늘의 추천 리드</h1>
-          <p className="mt-2 text-sm text-slate-500">
-            신규 리드 중 AI 점수 상위 5건을 제공합니다.
-          </p>
-        </header>
+    <main className="min-h-screen bg-[#f7f7f8] px-4 pb-8 pt-3 sm:px-6 sm:pb-10 sm:pt-4">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
+        <AppNavigation currentPath="/leads" />
+        <AppBreadcrumbs items={[{ label: '대시보드', href: '/dashboard' }, { label: '리드' }]} />
+        <GsapReveal>
+          <header className="rounded-xl border border-slate-200 bg-white p-5">
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">Lead Discovery</p>
+            <h1 className="mt-1 text-[22px] font-semibold text-slate-900">오늘의 추천 리드</h1>
+            <p className="mt-2 text-sm text-slate-500">
+              신규 리드 중 AI 점수 상위 5건을 제공합니다.
+            </p>
+          </header>
+        </GsapReveal>
 
         {errorKey && errorMessages[errorKey] ? (
-          <div className="mb-4 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-600">
+          <div className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-600">
             {errorMessages[errorKey]}
           </div>
         ) : null}
 
         {reported ? (
-          <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+          <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
             신고가 접수되었습니다. 무료 크레딧 1개가 보상되었습니다.
           </div>
         ) : null}
 
         {edited ? (
-          <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+          <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
             AI가 초안을 업데이트했습니다.
           </div>
         ) : null}
 
         {undo ? (
-          <div className="mb-4 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+          <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
             이전 버전으로 되돌렸습니다.
           </div>
         ) : null}
 
         {restored ? (
-          <div className="mb-4 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+          <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
             선택한 버전으로 복원했습니다.
           </div>
         ) : null}
 
         {notified ? (
-          <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+          <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
             알림 신청이 완료되었습니다. 이메일로 알려드릴게요.
           </div>
         ) : null}
 
-        <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
-          <section className="rounded-xl bg-white p-4 shadow-sm">
+        <GsapReveal delay={0.06}>
+          <div className="grid gap-4 lg:grid-cols-[320px_1fr]">
+          <section className="rounded-xl border border-slate-200 bg-white p-4">
             <h2 className="text-sm font-semibold text-slate-700">리드 목록</h2>
             <div className="mt-4 space-y-3">
               {leads.length === 0 ? (
@@ -185,7 +193,7 @@ export default async function LeadsPage({ searchParams }: LeadsPageProps) {
             </div>
           </section>
 
-          <section className="rounded-xl bg-white p-6 shadow-sm">
+          <section className="rounded-xl border border-slate-200 bg-white p-5">
             {selectedLead ? (
               <div className="space-y-4">
                 <div>
@@ -196,7 +204,7 @@ export default async function LeadsPage({ searchParams }: LeadsPageProps) {
                   </p>
                 </div>
 
-                <div className="rounded-lg border border-slate-100 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+                <div className="rounded-lg border border-slate-200 bg-slate-50/70 px-4 py-3 text-sm text-slate-700">
                   {selectedLead.contentSummary ?? '리드 요약 정보가 없습니다.'}
                 </div>
 
@@ -250,7 +258,7 @@ export default async function LeadsPage({ searchParams }: LeadsPageProps) {
                   {selectedLead.originalUrl ? (
                     <a
                       href={selectedLead.originalUrl}
-                      className="text-blue-600 underline"
+                      className="text-slate-700 underline underline-offset-4 hover:text-slate-900"
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -274,7 +282,8 @@ export default async function LeadsPage({ searchParams }: LeadsPageProps) {
               </div>
             )}
           </section>
-        </div>
+          </div>
+        </GsapReveal>
       </div>
     </main>
   )

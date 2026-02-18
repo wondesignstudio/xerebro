@@ -2,9 +2,10 @@
 do $$
 declare
   v_type_name text;
+  v_type_kind text;
 begin
-  select t.typname
-    into v_type_name
+  select t.typname, t.typtype
+    into v_type_name, v_type_kind
     from pg_type t
     join pg_attribute a on a.atttypid = t.oid
     join pg_class c on c.oid = a.attrelid
@@ -13,7 +14,8 @@ begin
      and a.attname = 'type'
      and n.nspname = 'public';
 
-  if v_type_name is not null then
+  -- Only alter enum types. Skip plain text columns.
+  if v_type_name is not null and v_type_kind = 'e' then
     execute format('alter type %I add value if not exists ''report_reward''', v_type_name);
   end if;
 end $$;
@@ -78,7 +80,8 @@ begin
 
   update wallets
      set free_credits = coalesce(free_credits, 0) + 1
-   where user_id = p_user_id;
+   where user_id = p_user_id
+   returning * into v_wallet;
 
   insert into transactions (
     id,
@@ -100,6 +103,6 @@ begin
      set status = 'reported'
    where id = p_lead_id;
 
-  return (select * from wallets where user_id = p_user_id);
+  return v_wallet;
 end;
 $$;

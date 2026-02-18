@@ -1,12 +1,18 @@
 import { describe, expect, it } from 'vitest'
-import { isConsentComplete, isReSignupRestricted } from '@/domain/userProfile'
+import { isConsentComplete, isReSignupRestricted, type UserProfile } from '@/domain/userProfile'
 
-const baseProfile = {
+const baseProfile: UserProfile = {
   id: 'user-1',
   email: 'test@example.com',
+  currentPlan: 'free',
   termsAgreedAt: null,
   lastLeftAt: null,
   marketingAgreed: null,
+  brandIndustry: null,
+  brandTargetAudience: null,
+  brandUsp: null,
+  personaTone: null,
+  personaGuideline: null,
 }
 
 describe('user profile consent', () => {

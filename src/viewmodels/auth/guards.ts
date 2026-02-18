@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation'
-import { isConsentComplete } from '@/domain/userProfile'
+import { isConsentComplete, isProPlan } from '@/domain/userProfile'
 import { getCurrentUser } from '@/repositories/auth/sessionRepository'
 import { fetchUserProfileById } from '@/repositories/users/userRepository'
 
@@ -23,6 +23,17 @@ export async function requireAuthUserWithConsentOrRedirect() {
 
   if (!isConsentComplete(profile)) {
     redirect('/consent')
+  }
+
+  return { user, profile }
+}
+
+// Ensures the user is on a Pro plan. Redirects to pricing when not eligible.
+export async function requireProPlanOrRedirect() {
+  const { user, profile } = await requireAuthUserWithConsentOrRedirect()
+
+  if (!isProPlan(profile)) {
+    redirect('/pricing')
   }
 
   return { user, profile }

@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   description: 'XEREBRO admin console',
 }
 
+// Keep app SSR close to KR/JP users and Supabase AP-Northeast traffic.
+export const preferredRegion = ['icn1', 'hnd1']
+
 export default function RootLayout({
   children,
 }: Readonly<{
