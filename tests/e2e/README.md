@@ -19,6 +19,33 @@ npm run e2e:auth
   Google 보안 차단 이슈가 있으면 Kakao 대신 Google만 먼저 확인하고,
   Supabase provider 활성 상태를 점검하세요.
 
+### Google 보안 차단 시 기존 Chrome 세션 export 방식
+
+1) 터미널 A에서 앱 실행
+
+```bash
+npm run dev
+```
+
+2) 터미널 B에서 원격 디버깅 Chrome 실행 (별도 프로필 권장)
+
+```bash
+open -na "Google Chrome" --args --remote-debugging-port=9222 --user-data-dir="$HOME/.xerebro-e2e-profile"
+```
+
+3) 열린 Chrome에서 `http://localhost:3000/login` 접속 후 Google 로그인 완료
+4) 터미널 C에서 auth state export
+
+```bash
+npm run e2e:auth:from-chrome
+```
+
+5) 이후 base64 출력
+
+```bash
+npm run e2e:auth:b64
+```
+
 ## 3) E2E 실행
 
 ```bash
