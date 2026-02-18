@@ -28,13 +28,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate E2E auth secret
-        run: |
-          if [ -z "${{ secrets.PLAYWRIGHT_AUTH_STATE_B64 }}" ]; then
-            echo "PLAYWRIGHT_AUTH_STATE_B64 is missing. Set it in repository secrets."
-            exit 1
-          fi
-
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
 
@@ -43,6 +36,13 @@ jobs:
 
       - name: Unit tests
         run: npm run test
+
+      - name: Validate E2E auth secret
+        run: |
+          if [ -z "${{ secrets.PLAYWRIGHT_AUTH_STATE_B64 }}" ]; then
+            echo "PLAYWRIGHT_AUTH_STATE_B64 is missing. Set it in repository secrets."
+            exit 1
+          fi
 
       - name: E2E tests
         run: npm run e2e
