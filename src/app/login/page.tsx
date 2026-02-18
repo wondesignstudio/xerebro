@@ -2,13 +2,14 @@ import { signInWithProvider } from '@/viewmodels/auth/actions'
 import LoginToast from '@/ui/components/LoginToast'
 
 type LoginPageProps = {
-  searchParams?: {
+  searchParams?: Promise<{
     withdrawn?: string
-  }
+  }>
 }
 
-export default function LoginPage({ searchParams }: LoginPageProps) {
-  const showWithdrawnToast = searchParams?.withdrawn === '1'
+export default async function LoginPage({ searchParams }: LoginPageProps) {
+  const resolvedSearchParams = searchParams ? await searchParams : undefined
+  const showWithdrawnToast = resolvedSearchParams?.withdrawn === '1'
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-slate-50 px-6">
