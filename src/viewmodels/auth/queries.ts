@@ -10,14 +10,19 @@ export async function getAuthUser() {
 
 // Determines the first screen for the root route based on auth/consent.
 export async function getAuthEntryRoute() {
-  const user = await getCurrentUser()
+  try {
+    const user = await getCurrentUser()
 
-  if (!user) {
+    if (!user) {
+      return '/login'
+    }
+
+    const profile = await fetchUserProfileById(user.id)
+    return isConsentComplete(profile) ? '/dashboard' : '/consent'
+  } catch {
+    // Root entry should remain available even when auth/profile backends are temporarily unavailable.
     return '/login'
   }
-
-  const profile = await fetchUserProfileById(user.id)
-  return isConsentComplete(profile) ? '/dashboard' : '/consent'
 }
 
 // Loads consent-related state for the consent UI.
