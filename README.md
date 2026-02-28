@@ -42,6 +42,24 @@ Notes:
 - `20260131020000_rls_minimum.sql` also adds RLS for `lead_notifications`.
 - If you already have a database, you can re-run any script safely.
 
+## Monitoring (Sentry)
+
+Server request exceptions are captured via Next instrumentation hook (`onRequestError`) and
+sent to Sentry with these tags/contexts:
+
+- `next.digest` (when available)
+- request URL/method/route metadata
+- Supabase session user id (when auth cookie is present)
+
+Required environment variable:
+
+- `SENTRY_DSN`
+
+Optional:
+
+- `NEXT_PUBLIC_SENTRY_DSN`
+- `SENTRY_TRACES_SAMPLE_RATE` (default: `0`)
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
