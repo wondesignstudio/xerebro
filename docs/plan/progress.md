@@ -2,6 +2,25 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Progress v0.70
+
+Date: 2026-03-02
+
+### Log
+- Added CI auth-session refresh step in Playwright global setup:
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/global-setup.ts`
+  - decodes Supabase auth cookie payload from base64 chunks
+  - refreshes session using `refresh_token` via `auth/v1/token?grant_type=refresh_token`
+  - rewrites auth cookies (chunked) across detected domains before writing `tests/e2e/.auth/user.json`
+- Preserved localhost cookie-map fallback and documented refresh behavior:
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/README.md`
+- Validation complete:
+  - `npm run lint`
+  - `npm run test`
+
+
+---
+
 ## Progress v0.69
 
 Date: 2026-03-02

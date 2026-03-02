@@ -2,6 +2,21 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Plan v0.70
+
+Date: 2026-03-02
+Owner: Codex
+Scope: Reduce CI login flakiness by refreshing Supabase session from auth-state secret
+
+### Steps
+1. Extend Playwright global setup to decode Supabase auth cookie payload and extract refresh token.
+2. Refresh session via Supabase Auth token endpoint and rewrite auth cookies before tests start.
+3. Keep localhost cookie-mapping fallback and document refreshed-session behavior.
+4. Run lint/test and push for CI verification.
+
+
+---
+
 ## Plan v0.69
 
 Date: 2026-03-02

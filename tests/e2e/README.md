@@ -87,6 +87,7 @@ Secret이 비어 있으면 CI quality job은 실패합니다.
 따라서 secret용 auth state도 `http://localhost:3000/login`에서 로그인한 세션으로 생성해야 합니다.
 다만 `e2e:auth:from-chrome:prod`를 쓰면 production 로그인 세션으로도 localhost 호환 auth state를 생성할 수 있습니다.
 또한 CI global setup에서 `xerebro.me` Supabase auth cookie를 localhost로 자동 매핑해 오리진 불일치 실패를 완화합니다.
+CI global setup는 가능한 경우 refresh token으로 세션을 재발급해 만료 토큰 실패를 줄입니다.
 
 ## `e2e:auth:from-chrome` 실패 시 점검
 
