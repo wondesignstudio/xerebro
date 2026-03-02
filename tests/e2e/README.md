@@ -55,7 +55,9 @@ npm run e2e:auth:from-chrome:prod
 npm run e2e:auth:b64:copy
 ```
 
-`e2e:auth:b64:copy`는 `PLAYWRIGHT_AUTH_STATE_B64` 값을 클립보드에 복사합니다.
+`e2e:auth:from-chrome:prod`는 `xerebro.me` 로그인 세션의 Supabase auth cookie를
+`localhost` 테스트 오리진으로 자동 매핑해서 저장합니다.
+`e2e:auth:b64:copy`는 실패 시 즉시 에러를 내고, 성공 시 길이를 출력합니다.
 
 ## 3) E2E 실행
 
@@ -82,6 +84,7 @@ Secret이 비어 있으면 CI quality job은 실패합니다.
 
 중요: CI E2E는 `http://localhost:3000` 기준으로 실행됩니다.
 따라서 secret용 auth state도 `http://localhost:3000/login`에서 로그인한 세션으로 생성해야 합니다.
+다만 `e2e:auth:from-chrome:prod`를 쓰면 production 로그인 세션으로도 localhost 호환 auth state를 생성할 수 있습니다.
 
 ## `e2e:auth:from-chrome` 실패 시 점검
 

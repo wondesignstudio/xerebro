@@ -19,6 +19,47 @@ function hasTargetCookie(state, targetOrigin) {
   })
 }
 
+function addMappedAuthCookiesForLocalhost(state, targetOrigin) {
+  const hostname = new URL(targetOrigin).hostname
+  if (hostname !== 'localhost') {
+    return { state, added: 0 }
+  }
+
+  const authCookies = state.cookies.filter((cookie) => {
+    return cookie.domain.includes('xerebro.me')
+      && cookie.name.includes('-auth-token')
+      && cookie.name.startsWith('sb-')
+  })
+
+  if (authCookies.length === 0) {
+    return { state, added: 0 }
+  }
+
+  const existing = new Set(state.cookies.map((cookie) => `${cookie.name}|${cookie.domain}|${cookie.path}`))
+  const mapped = []
+
+  for (const cookie of authCookies) {
+    const key = `${cookie.name}|localhost|${cookie.path}`
+    if (existing.has(key)) {
+      continue
+    }
+
+    mapped.push({
+      ...cookie,
+      domain: 'localhost',
+      secure: false,
+    })
+  }
+
+  return {
+    state: {
+      ...state,
+      cookies: [...state.cookies, ...mapped],
+    },
+    added: mapped.length,
+  }
+}
+
 try {
   const browser = await chromium.connectOverCDP(CDP_ENDPOINT)
   const [context] = browser.contexts()
@@ -27,7 +68,9 @@ try {
     throw new Error('No browser context found. Open a tab in the remote-debug Chrome first.')
   }
 
-  const state = await context.storageState()
+  const capturedState = await context.storageState()
+  const mappedResult = addMappedAuthCookiesForLocalhost(capturedState, TARGET_ORIGIN)
+  const state = mappedResult.state
   const targetCookieExists = hasTargetCookie(state, TARGET_ORIGIN)
 
   await fs.mkdir(path.dirname(AUTH_STATE_FILE), { recursive: true })
@@ -41,6 +84,9 @@ try {
     )
   } else {
     console.log(`[e2e:auth:from-chrome] Saved auth state: ${AUTH_STATE_FILE}`)
+    if (mappedResult.added > 0) {
+      console.log(`[e2e:auth:from-chrome] Added ${mappedResult.added} localhost auth cookie(s) from xerebro.me session.`)
+    }
   }
 } catch (error) {
   const message = error instanceof Error ? error.message : String(error)

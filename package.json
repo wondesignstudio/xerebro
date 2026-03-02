@@ -14,7 +14,7 @@
     "e2e:auth:from-chrome": "node scripts/e2e/export-auth-state-from-chrome.mjs",
     "e2e:auth:from-chrome:prod": "PLAYWRIGHT_AUTH_ORIGIN=https://xerebro.me node scripts/e2e/export-auth-state-from-chrome.mjs",
     "e2e:auth:b64": "node scripts/e2e/print-auth-state-b64.mjs",
-    "e2e:auth:b64:copy": "node scripts/e2e/print-auth-state-b64.mjs | pbcopy && echo \"Copied PLAYWRIGHT_AUTH_STATE_B64 to clipboard.\""
+    "e2e:auth:b64:copy": "node scripts/e2e/copy-auth-state-b64.mjs"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.40.0",

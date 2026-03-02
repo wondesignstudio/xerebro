@@ -2,6 +2,21 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Plan v0.66
+
+Date: 2026-03-02
+Owner: Codex
+Scope: Remove auth-state setup friction by auto-mapping production session cookies for localhost E2E
+
+### Steps
+1. Extend Chrome auth export script to map Supabase auth cookies from `xerebro.me` to `localhost` when needed.
+2. Replace fragile shell pipe copy command with a strict Node copy helper that fails on read/copy mismatch.
+3. Update E2E guide with the new behavior and safer copy workflow.
+4. Run lint/test and record progress.
+
+
+---
+
 ## Plan v0.65
 
 Date: 2026-03-02

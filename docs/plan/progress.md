@@ -2,6 +2,28 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Progress v0.66
+
+Date: 2026-03-02
+
+### Log
+- Enhanced Chrome auth export for mixed-origin setups:
+  - `/Users/dongjunma/Desktop/Xerebro/scripts/e2e/export-auth-state-from-chrome.mjs`
+  - when target origin is localhost and only xerebro.me auth cookies exist, script now maps Supabase auth cookies to localhost automatically
+- Replaced fragile shell copy pipeline with strict copy helper:
+  - `/Users/dongjunma/Desktop/Xerebro/scripts/e2e/copy-auth-state-b64.mjs`
+  - `/Users/dongjunma/Desktop/Xerebro/package.json` (`e2e:auth:b64:copy`)
+  - behavior: fail fast on missing auth file or clipboard mismatch, print copied length on success
+- Updated E2E docs:
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/README.md`
+  - clarified production-session-to-localhost mapping and stricter copy behavior
+- Validation complete:
+  - `npm run lint`
+  - `npm run test`
+
+
+---
+
 ## Progress v0.65
 
 Date: 2026-03-02
