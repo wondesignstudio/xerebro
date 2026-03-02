@@ -40,6 +40,9 @@ jobs:
             echo "::error::Missing PLAYWRIGHT_AUTH_STATE_B64. Configure repository secret for authenticated E2E."
             exit 1
           fi
+          node scripts/e2e/validate-auth-state-b64.mjs
+        env:
+          PLAYWRIGHT_AUTH_STATE_B64: ${{ secrets.PLAYWRIGHT_AUTH_STATE_B64 }}
 
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium

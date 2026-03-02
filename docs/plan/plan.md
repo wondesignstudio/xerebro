@@ -2,6 +2,21 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Plan v0.69
+
+Date: 2026-03-02
+Owner: Codex
+Scope: Fail early on malformed CI auth secret and improve diagnosability
+
+### Steps
+1. Add a dedicated validator script for `PLAYWRIGHT_AUTH_STATE_B64` (base64 decode + JSON + Supabase auth cookie checks).
+2. Invoke validator in CI auth-secret gate step before Playwright install/e2e.
+3. Update E2E docs to clarify malformed secret behavior.
+4. Run lint/test and push.
+
+
+---
+
 ## Plan v0.68
 
 Date: 2026-03-02

@@ -81,6 +81,7 @@ npm run e2e:auth:b64
 출력된 문자열을 GitHub Repository Settings > Secrets and variables > Actions >
 `PLAYWRIGHT_AUTH_STATE_B64`에 그대로 붙여넣으면 CI에서 인증 E2E가 실행됩니다.
 Secret이 비어 있으면 CI quality job은 실패합니다.
+형식이 깨진 값(에러 메시지 텍스트 등)을 붙여넣으면 CI의 secret validation 단계에서 실패합니다.
 
 중요: CI E2E는 `http://localhost:3000` 기준으로 실행됩니다.
 따라서 secret용 auth state도 `http://localhost:3000/login`에서 로그인한 세션으로 생성해야 합니다.

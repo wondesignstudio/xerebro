@@ -2,6 +2,27 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Progress v0.69
+
+Date: 2026-03-02
+
+### Log
+- Added CI auth secret validator:
+  - `/Users/dongjunma/Desktop/Xerebro/scripts/e2e/validate-auth-state-b64.mjs`
+  - validates base64 decoding, JSON shape, and presence of Supabase auth-token cookies
+- Updated CI gate:
+  - `/Users/dongjunma/Desktop/Xerebro/.github/workflows/ci.yml`
+  - `Validate E2E auth secret` now runs the validator script and fails early on malformed secret values
+- Updated E2E docs:
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/README.md`
+  - documented malformed secret failure behavior
+- Validation complete:
+  - `npm run lint`
+  - `npm run test`
+
+
+---
+
 ## Progress v0.68
 
 Date: 2026-03-02
