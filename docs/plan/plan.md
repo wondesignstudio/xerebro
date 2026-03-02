@@ -2,6 +2,20 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Plan v0.68
+
+Date: 2026-03-02
+Owner: Codex
+Scope: Fix hosted-pages E2E selector regression after breadcrumb/header UI duplication
+
+### Steps
+1. Replace ambiguous slug text assertion with heading-scoped locator in hosted-pages E2E flow.
+2. Re-run e2e locally to validate regression fix.
+3. Push and verify CI quality run.
+
+
+---
+
 ## Plan v0.67
 
 Date: 2026-03-02

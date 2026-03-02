@@ -39,7 +39,7 @@ test.describe('hosted pages critical flow', () => {
       await page.getByRole('button', { name: '새 랜딩 페이지 만들기' }).click()
 
       await expect(page).toHaveURL(new RegExp(`/hosted-pages/[^/?]+\\?created=1`))
-      await expect(page.getByText(slug, { exact: true })).toBeVisible()
+      await expect(page.getByRole('heading', { name: slug })).toBeVisible()
 
       await page.getByLabel('Theme Color').fill('#1f2937')
       await page.getByRole('button', { name: '변경사항 저장' }).click()

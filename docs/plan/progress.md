@@ -2,6 +2,23 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Progress v0.68
+
+Date: 2026-03-02
+
+### Log
+- Fixed hosted-pages E2E selector collision:
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/hosted-pages.spec.ts`
+  - replaced duplicate text-based assertion with heading-scoped locator
+  - reason: breadcrumb + title both render the same slug text, causing Playwright strict mode violation
+- Validation complete:
+  - `npm run e2e`
+  - `npm run lint`
+  - `npm run test`
+
+
+---
+
 ## Progress v0.67
 
 Date: 2026-03-02
