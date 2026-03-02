@@ -2,6 +2,20 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Plan v0.65
+
+Date: 2026-03-02
+Owner: Codex
+Scope: Align CI E2E runtime origin and auth-state generation guidance
+
+### Steps
+1. Align CI Playwright base URL to `http://localhost:3000` to match local auth-state capture defaults.
+2. Clarify in E2E runbook that CI secret must be generated from localhost login session.
+3. Re-run lint and update progress log.
+
+
+---
+
 ## Plan v0.64
 
 Date: 2026-03-02

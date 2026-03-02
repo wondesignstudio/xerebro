@@ -2,6 +2,23 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Progress v0.65
+
+Date: 2026-03-02
+
+### Log
+- Aligned CI Playwright base URL with local auth-state capture origin:
+  - `/Users/dongjunma/Desktop/Xerebro/.github/workflows/ci.yml`
+  - changed `PLAYWRIGHT_BASE_URL` from `http://127.0.0.1:3000` to `http://localhost:3000`
+- Updated E2E documentation to prevent origin mismatch during secret generation:
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/README.md`
+  - added explicit note that CI secret must come from localhost login session
+- Validation complete:
+  - `npm run lint`
+
+
+---
+
 ## Progress v0.64
 
 Date: 2026-03-02
