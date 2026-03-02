@@ -2,6 +2,21 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Plan v0.64
+
+Date: 2026-03-02
+Owner: Codex
+Scope: Shorten GitHub E2E auth-secret setup path from existing production login session
+
+### Steps
+1. Add npm script to export auth-state from remote-debug Chrome using production origin (`https://xerebro.me`).
+2. Add npm helper to copy base64 auth-state directly to clipboard for secret registration.
+3. Update E2E guide with a minimal "production session -> secret" fast path.
+4. Run lint/test and record progress update.
+
+
+---
+
 ## Plan v0.63
 
 Date: 2026-03-02

@@ -46,6 +46,17 @@ npm run e2e:auth:from-chrome
 npm run e2e:auth:b64
 ```
 
+### CI용 빠른 경로 (production 로그인 세션 기준)
+
+```bash
+open -na "Google Chrome" --args --remote-debugging-port=9222 --user-data-dir="$HOME/.xerebro-e2e-profile"
+# 위 Chrome에서 https://xerebro.me/login 로그인
+npm run e2e:auth:from-chrome:prod
+npm run e2e:auth:b64:copy
+```
+
+`e2e:auth:b64:copy`는 `PLAYWRIGHT_AUTH_STATE_B64` 값을 클립보드에 복사합니다.
+
 ## 3) E2E 실행
 
 ```bash
@@ -67,6 +78,7 @@ npm run e2e:auth:b64
 
 출력된 문자열을 GitHub Repository Settings > Secrets and variables > Actions >
 `PLAYWRIGHT_AUTH_STATE_B64`에 그대로 붙여넣으면 CI에서 인증 E2E가 실행됩니다.
+Secret이 비어 있으면 CI quality job은 실패합니다.
 
 ## `e2e:auth:from-chrome` 실패 시 점검
 

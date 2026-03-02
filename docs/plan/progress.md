@@ -2,6 +2,25 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Progress v0.64
+
+Date: 2026-03-02
+
+### Log
+- Added production-origin auth export helper scripts:
+  - `/Users/dongjunma/Desktop/Xerebro/package.json`
+  - `e2e:auth:from-chrome:prod` (`PLAYWRIGHT_AUTH_ORIGIN=https://xerebro.me`)
+  - `e2e:auth:b64:copy` (base64 auth-state to clipboard)
+- Updated E2E runbook fast path:
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/README.md`
+  - documented minimal production login session flow and explicit CI failure behavior when secret is missing
+- Validation complete:
+  - `npm run lint`
+  - `npm run test`
+
+
+---
+
 ## Progress v0.63
 
 Date: 2026-03-02
