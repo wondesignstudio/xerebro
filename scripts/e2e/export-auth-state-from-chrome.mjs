@@ -46,5 +46,17 @@ try {
   const message = error instanceof Error ? error.message : String(error)
   console.error('[e2e:auth:from-chrome] Failed to export auth state.')
   console.error(message)
+  if (message.includes('ECONNREFUSED')) {
+    console.error('')
+    console.error('[e2e:auth:from-chrome] Chrome CDP endpoint is not reachable.')
+    console.error(`[e2e:auth:from-chrome] Expected endpoint: ${CDP_ENDPOINT}`)
+    console.error('[e2e:auth:from-chrome] Try the following sequence:')
+    console.error('  1) npm run dev')
+    console.error(
+      '  2) open -na "Google Chrome" --args --remote-debugging-port=9222 --user-data-dir="$HOME/.xerebro-e2e-profile"',
+    )
+    console.error(`  3) Sign in at ${TARGET_ORIGIN}/login`)
+    console.error('  4) Re-run: npm run e2e:auth:from-chrome')
+  }
   process.exit(1)
 }

@@ -2,6 +2,21 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Plan v0.63
+
+Date: 2026-03-02
+Owner: Codex
+Scope: Enforce authenticated CI E2E gate and harden local auth-state export flow
+
+### Steps
+1. Remove CI skip-branch for E2E and fail fast when auth-state secret is missing.
+2. Keep authenticated E2E as mandatory quality stage after lint/unit checks.
+3. Improve local `e2e:auth:from-chrome` failure guidance for CDP connection issues.
+4. Update E2E runbook docs with new gate behavior and troubleshooting.
+
+
+---
+
 ## Plan v0.62
 
 Date: 2026-02-18

@@ -54,7 +54,7 @@ npm run e2e
 
 - 현재 `npm run e2e`는 `tests/e2e/hosted-pages.spec.ts`만 실행합니다.
 - 로컬에서 `tests/e2e/.auth/user.json`이 없으면 테스트는 skip 됩니다.
-- CI에서는 `PLAYWRIGHT_AUTH_STATE_B64`가 없으면 E2E 단계가 skip 됩니다.
+- CI에서는 `PLAYWRIGHT_AUTH_STATE_B64`가 없으면 quality job이 실패합니다(인증 E2E 필수).
 
 ## CI 인증 상태 시크릿 준비
 
@@ -67,6 +67,21 @@ npm run e2e:auth:b64
 
 출력된 문자열을 GitHub Repository Settings > Secrets and variables > Actions >
 `PLAYWRIGHT_AUTH_STATE_B64`에 그대로 붙여넣으면 CI에서 인증 E2E가 실행됩니다.
+
+## `e2e:auth:from-chrome` 실패 시 점검
+
+- `ECONNREFUSED 127.0.0.1:9222`가 나오면, Chrome이 원격 디버깅 모드로 실행되지 않은 상태입니다.
+- 아래 순서로 다시 실행:
+
+```bash
+npm run dev
+open -na "Google Chrome" --args --remote-debugging-port=9222 --user-data-dir="$HOME/.xerebro-e2e-profile"
+npm run e2e:auth:from-chrome
+```
+
+- 기본값 변경:
+  - `PLAYWRIGHT_CDP_ENDPOINT` (기본: `http://127.0.0.1:9222`)
+  - `PLAYWRIGHT_AUTH_ORIGIN` (기본: `http://localhost:3000`)
 
 ## 환경 변수
 

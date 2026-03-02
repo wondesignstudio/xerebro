@@ -2,6 +2,28 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Progress v0.63
+
+Date: 2026-03-02
+
+### Log
+- Updated CI E2E gate to fail when auth secret is missing:
+  - `/Users/dongjunma/Desktop/Xerebro/.github/workflows/ci.yml`
+  - removed skip branch, added explicit `PLAYWRIGHT_AUTH_STATE_B64` validation step
+  - Playwright browser install + authenticated E2E now run unconditionally after validation
+- Hardened Chrome auth-state export troubleshooting:
+  - `/Users/dongjunma/Desktop/Xerebro/scripts/e2e/export-auth-state-from-chrome.mjs`
+  - added actionable guidance when CDP endpoint connection is refused
+- Updated E2E docs:
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/README.md`
+  - documented enforced CI gate and `e2e:auth:from-chrome` recovery steps/env overrides
+- Validation complete:
+  - `npm run lint`
+  - `npm run test`
+
+
+---
+
 ## Progress v0.62
 
 Date: 2026-02-18
