@@ -2,6 +2,21 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Plan v0.67
+
+Date: 2026-03-02
+Owner: Codex
+Scope: Make CI auth-state decoding resilient to production-origin cookie inputs
+
+### Steps
+1. Extend Playwright global setup to detect target origin and cookie mismatch.
+2. Auto-map Supabase auth cookies from `xerebro.me` to localhost during CI auth-state decode.
+3. Update E2E guide with CI-side origin-mismatch mitigation behavior.
+4. Run lint/test and push for CI verification.
+
+
+---
+
 ## Plan v0.66
 
 Date: 2026-03-02

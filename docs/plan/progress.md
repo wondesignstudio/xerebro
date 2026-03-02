@@ -2,6 +2,25 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Progress v0.67
+
+Date: 2026-03-02
+
+### Log
+- Hardened CI auth-state bootstrap against origin mismatch:
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/global-setup.ts`
+  - decode base64 auth-state into structured object
+  - when CI target is localhost and auth cookies exist only for xerebro.me, auto-map Supabase auth cookies to localhost before writing `tests/e2e/.auth/user.json`
+- Updated E2E docs:
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/README.md`
+  - documented CI-side cookie origin remap behavior
+- Validation complete:
+  - `npm run lint`
+  - `npm run test`
+
+
+---
+
 ## Progress v0.66
 
 Date: 2026-03-02
