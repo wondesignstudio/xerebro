@@ -2,6 +2,20 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Plan v0.71
+
+Date: 2026-03-06
+Owner: Codex
+Scope: Fail CI early when Supabase refresh secrets are missing
+
+### Steps
+1. Extend the CI auth gate to require `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+2. Update the E2E runbook so the required GitHub secrets are explicit.
+3. Run lint and push for immediate feedback.
+
+
+---
+
 ## Plan v0.70
 
 Date: 2026-03-02

@@ -40,6 +40,14 @@ jobs:
             echo "::error::Missing PLAYWRIGHT_AUTH_STATE_B64. Configure repository secret for authenticated E2E."
             exit 1
           fi
+          if [ -z "${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}" ]; then
+            echo "::error::Missing NEXT_PUBLIC_SUPABASE_URL. Configure repository secret for E2E session refresh."
+            exit 1
+          fi
+          if [ -z "${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}" ]; then
+            echo "::error::Missing NEXT_PUBLIC_SUPABASE_ANON_KEY. Configure repository secret for E2E session refresh."
+            exit 1
+          fi
           node scripts/e2e/validate-auth-state-b64.mjs
         env:
           PLAYWRIGHT_AUTH_STATE_B64: ${{ secrets.PLAYWRIGHT_AUTH_STATE_B64 }}

@@ -2,6 +2,23 @@
 
 <!-- Combined on 2026-02-01 -->
 
+## Progress v0.71
+
+Date: 2026-03-06
+
+### Log
+- Tightened CI E2E prerequisite validation:
+  - `/Users/dongjunma/Desktop/Xerebro/.github/workflows/ci.yml`
+  - `Validate E2E auth secret` now also requires `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- Updated runbook:
+  - `/Users/dongjunma/Desktop/Xerebro/tests/e2e/README.md`
+  - documented the extra required repository secrets for CI session refresh
+- Validation complete:
+  - `npm run lint`
+
+
+---
+
 ## Progress v0.70
 
 Date: 2026-03-02
