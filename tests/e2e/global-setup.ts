@@ -108,7 +108,7 @@ async function refreshSupabaseSessionCookies(state: StorageState) {
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    return state
+    return { state, refreshed: false, reason: 'missing_supabase_env' as const }
   }
 
   const cookieGroups = new Map<string, StorageCookie[]>()
@@ -151,7 +151,7 @@ async function refreshSupabaseSessionCookies(state: StorageState) {
     })
 
     if (!response.ok) {
-      continue
+      return { state, refreshed: false, reason: 'refresh_failed' as const }
     }
 
     const refreshedPayload = await response.json()
@@ -181,12 +181,16 @@ async function refreshSupabaseSessionCookies(state: StorageState) {
     }
 
     return {
-      ...state,
-      cookies: nextCookies,
+      state: {
+        ...state,
+        cookies: nextCookies,
+      },
+      refreshed: true,
+      reason: 'refreshed' as const,
     }
   }
 
-  return state
+  return { state, refreshed: false, reason: 'no_refresh_token' as const }
 }
 
 export default async function globalSetup() {
@@ -200,9 +204,19 @@ export default async function globalSetup() {
     const decodedAuthState = decodeAuthStateFromBase64(encodedAuthState)
     const targetOrigin = process.env.PLAYWRIGHT_BASE_URL?.trim() || 'http://localhost:3000'
     const mappedAuthState = mapSupabaseAuthCookiesToLocalhost(decodedAuthState, targetOrigin)
-    const normalizedAuthState = await refreshSupabaseSessionCookies(mappedAuthState)
+    const refreshResult = await refreshSupabaseSessionCookies(mappedAuthState)
+    const normalizedAuthState = refreshResult.state
     await fs.mkdir(path.dirname(AUTH_STATE_FILE), { recursive: true })
     await fs.writeFile(AUTH_STATE_FILE, JSON.stringify(normalizedAuthState, null, 2), 'utf8')
+    const domains = Array.from(new Set(normalizedAuthState.cookies.map((cookie) => cookie.domain))).sort()
+    const hasLocalhost = normalizedAuthState.cookies.some((cookie) => cookie.domain === 'localhost')
+    const hasAuthCookie = normalizedAuthState.cookies.some((cookie) => {
+      return cookie.name.startsWith('sb-') && cookie.name.includes('-auth-token')
+    })
+    console.log(
+      `[e2e:auth] cookies=${normalizedAuthState.cookies.length} domains=${domains.join(',')} ` +
+        `localhost=${hasLocalhost} authCookie=${hasAuthCookie} refresh=${refreshResult.reason}`,
+    )
     return
   }
 
